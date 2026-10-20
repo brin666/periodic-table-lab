@@ -1,0 +1,999 @@
+/* Graphite and mineral surfaces for the periodic-table atlas.
+   Imported after the structural styles so dimensions and responsive layout stay intact. */
+:root {
+  color-scheme: dark;
+  color: #e7ece9;
+  background: #171c20;
+  --ink: #e7ece9;
+  --muted: #aebbb8;
+  --line: #3b474b;
+  --paper: #20282c;
+  --accent: #c3d4bc;
+  --surface-0: #171c20;
+  --surface-1: #1d2428;
+  --surface-2: #242d31;
+  --surface-card: #222a2e;
+  --surface-control: #262f33;
+  --surface-key: #283136;
+  --key-shadow: #11171a;
+  --key-edge-highlight: #ffffff24;
+  --hairline: #3b474b;
+  --text-main: #e7ece9;
+  --text-soft: #b3bfbc;
+  --text-dim: #9eaeaa;
+  --focus-ring: #d4e3c7;
+}
+
+html {
+  color-scheme: dark;
+  background: var(--surface-0);
+}
+
+body {
+  color: var(--text-main);
+  background:
+    radial-gradient(ellipse at 48% -16%, #293438 0, transparent 49%),
+    linear-gradient(180deg, #1b2226 0, var(--surface-0) 45rem);
+}
+
+button,
+input,
+summary,
+a {
+  color: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+summary:focus-visible,
+.element-key:focus-visible {
+  outline: 3px solid var(--focus-ring) !important;
+  outline-offset: 4px;
+}
+
+::selection {
+  color: #f5f7f3;
+  background: #65796c;
+}
+
+/* Category colors are deliberately subdued. A data-category hook lets the
+   same ceramic tone follow an element from its key into the exploration page. */
+[data-category="nonmetal"] {
+  --mineral-color: #536d59;
+  --mineral-side: #35483b;
+  --mineral-edge: #829989;
+  --mineral-ink: #f0f4ef;
+  --mineral-muted: #f0f3ef;
+}
+
+[data-category="alkali"] {
+  --mineral-color: #76534c;
+  --mineral-side: #4d3935;
+  --mineral-edge: #a18177;
+  --mineral-ink: #f5efeb;
+  --mineral-muted: #f0f3ef;
+}
+
+[data-category="alkaline"] {
+  --mineral-color: #786747;
+  --mineral-side: #514730;
+  --mineral-edge: #a29169;
+  --mineral-ink: #f5f1e7;
+  --mineral-muted: #f0f3ef;
+}
+
+[data-category="transition"] {
+  --mineral-color: #69674f;
+  --mineral-side: #484735;
+  --mineral-edge: #918c69;
+  --mineral-ink: #f4f2e9;
+  --mineral-muted: #f0f3ef;
+}
+
+[data-category="post-transition"] {
+  --mineral-color: #4c686b;
+  --mineral-side: #34494c;
+  --mineral-edge: #789194;
+  --mineral-ink: #edf4f3;
+  --mineral-muted: #f0f3ef;
+}
+
+[data-category="metalloid"] {
+  --mineral-color: #4c6e5d;
+  --mineral-side: #334a3f;
+  --mineral-edge: #7c9b88;
+  --mineral-ink: #eff5f0;
+  --mineral-muted: #f0f3ef;
+}
+
+[data-category="halogen"] {
+  --mineral-color: #606f48;
+  --mineral-side: #414b32;
+  --mineral-edge: #87946a;
+  --mineral-ink: #f1f3e9;
+  --mineral-muted: #f0f3ef;
+}
+
+[data-category="noble"] {
+  --mineral-color: #675a72;
+  --mineral-side: #493e52;
+  --mineral-edge: #91829a;
+  --mineral-ink: #f3eff5;
+  --mineral-muted: #f0f3ef;
+}
+
+[data-category="lanthanide"] {
+  --mineral-color: #506782;
+  --mineral-side: #36485c;
+  --mineral-edge: #7e98b4;
+  --mineral-ink: #eef3f8;
+  --mineral-muted: #f0f3ef;
+}
+
+[data-category="actinide"] {
+  --mineral-color: #6c566b;
+  --mineral-side: #4b3d4b;
+  --mineral-edge: #987f96;
+  --mineral-ink: #f4eef4;
+  --mineral-muted: #f0f3ef;
+}
+
+/* Site shell and teaching controls */
+.site-header {
+  border-color: transparent;
+}
+
+.wordmark,
+.reading-button,
+.motion-toggle,
+.header-right,
+.page-intro h1,
+.explore-page h1,
+.explore-page h2,
+.substance-page h1,
+.substance-page h2,
+.substance-page h3,
+.element-facts strong,
+.explore-notes h2 {
+  color: var(--text-main);
+}
+
+.brand-mark {
+  color: #e7eee6;
+  background: linear-gradient(145deg, #53695b, #34453d);
+  box-shadow:
+    0 3px 0 #29372f,
+    0 8px 18px #0005,
+    inset 0 1px 0 #ffffff30;
+}
+
+.brand-mark i {
+  background: #d7e3c8;
+}
+
+.header-caption,
+.page-intro p,
+.eyebrow,
+.intro-note p,
+.intro-note svg,
+.table-bottom,
+.site-footer,
+.site-footer button,
+.board-footer,
+.axis-caption,
+.group-number,
+.period-number,
+.series-label,
+.series-label span,
+.mobile-scroll-hint {
+  color: var(--text-dim);
+}
+
+.page-intro .eyebrow,
+.explore-heading .eyebrow,
+.substance-info .eyebrow,
+.reactions-heading .eyebrow {
+  color: #b6c5bd;
+}
+
+.title-dot,
+.tiny-line,
+.intro-note > span {
+  color: #9daf9e;
+}
+
+.tiny-line,
+.site-footer,
+.site-header .reading-button,
+.reading-button {
+  border-color: var(--hairline);
+}
+
+.learning-switch {
+  border-color: #414d4b;
+  background: #232c2e;
+  box-shadow: inset 0 1px 0 #ffffff0a;
+}
+
+.learning-switch-indicator {
+  background: #39463f;
+  box-shadow:
+    0 2px 6px #0005,
+    inset 0 1px 0 #ffffff20;
+}
+
+.learning-switch button {
+  color: #b2bfbb;
+}
+
+.learning-switch button[aria-pressed="true"] {
+  color: #f0f4ed;
+}
+
+.motion-toggle[aria-pressed="true"] {
+  color: #d6e2c7;
+}
+
+.reading-button:hover,
+.back-button:hover,
+.bottom-back:hover,
+.site-footer button:hover,
+.source-details a:hover,
+.table-invitation button:hover {
+  color: #e1ead5;
+}
+
+.page-navigation {
+  color: var(--text-soft);
+}
+
+.back-button,
+.element-switcher,
+.breadcrumb,
+.breadcrumb button,
+.bottom-back {
+  color: #c0cbc7;
+}
+
+.element-switcher > span > span,
+.breadcrumb > span {
+  color: #93a19d;
+}
+
+.element-switcher button,
+.round-arrow {
+  color: #d1dbd7;
+  border-color: #4a5759;
+  background: #273034;
+}
+
+.site-footer {
+  border-color: var(--hairline);
+}
+
+.footer-separator {
+  color: #73817d;
+}
+
+/* Periodic table: same measurements, darker board and ceramic keys. */
+.periodic-board {
+  background: #1d2428;
+  border-color: #303b40;
+  box-shadow:
+    0 16px 38px #0002,
+    inset 0 1px 0 #ffffff0b;
+}
+
+.table-page .periodic-board {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.table-page .table-tabs button {
+  color: #b1bfba;
+  border-color: #3b494a;
+  background: #222b2e;
+}
+
+.table-page .table-tabs button.active {
+  color: #eef3ed;
+  border-color: #61736a;
+  background: #35443d;
+  box-shadow:
+    inset 0 1px 0 #ffffff17,
+    0 3px 8px #0003;
+}
+
+.table-tabs button span {
+  color: #c2cec8;
+}
+
+.search-box {
+  color: #c2cec9;
+  border-color: #3d494c;
+  background: #20292d;
+}
+
+.search-box input {
+  color: #e7ece9;
+}
+
+.search-box input::placeholder {
+  color: #a5b2ad;
+}
+
+.table-scroll,
+.related-cards {
+  scrollbar-color: #586660 #20272a;
+}
+
+.element-grid .group-number,
+.element-grid .period-number,
+.element-grid .axis-caption {
+  color: #a9b6b2;
+}
+
+.element-key .atomic-number,
+.element-key .element-name,
+.hero-key .atomic-number,
+.hero-key .element-name,
+.hero-key .element-english {
+  color: #d6dfdb;
+}
+
+.element-key .element-symbol,
+.hero-key .element-symbol {
+  color: #f2f5f2;
+}
+
+.element-key .story-dot {
+  background: #d6d5ae;
+  box-shadow: 0 0 0 2px #252d30;
+}
+
+.element-key.dimmed {
+  opacity: 0.34;
+}
+
+.element-key:active .key-face {
+  box-shadow:
+    0 0 0 #11171a,
+    inset 0 3px 6px #0005;
+}
+
+.series-placeholder {
+  color: #b4c1bb;
+  border-color: #62716a;
+  background: #20282b99;
+}
+
+.series-label {
+  color: #c0cbc5;
+}
+
+.series-label span {
+  color: #a7b4ae;
+}
+
+.invitation-symbol {
+  color: #9daa9a;
+}
+
+.mini-label,
+.table-invitation .mini-label {
+  color: #aab8b0;
+}
+
+.table-invitation p {
+  color: #a7b4b0;
+}
+
+.invitation-orbit {
+  border-color: #52635a;
+}
+
+.invitation-orbit::after {
+  background: #b4c19d;
+  box-shadow: 0 0 0 4px #20272a;
+}
+
+.board-footer,
+.table-bottom {
+  color: #aebbb5;
+}
+
+.story-dot-inline {
+  background: #c0cdaa;
+}
+
+.category-legend button {
+  color: #c0cbc6;
+  border-color: transparent;
+}
+
+.category-legend button.selected {
+  color: #edf2ec;
+  border-color: #627269;
+  background: #303d38;
+}
+
+.category-legend i {
+  border-color: #d0d9d22e;
+  filter: brightness(0.76) saturate(0.78);
+}
+
+.table-page .category-legend button.selected {
+  border-color: #64766c;
+  background: #303c37;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .category-legend button:hover {
+    border-color: #65766d;
+  }
+}
+
+/* Exploration stage: quiet graphite panels keep the atom diagram legible. */
+.explore-page .exploration-layout {
+  color: var(--text-main);
+  border-color: #3a474a;
+  background: linear-gradient(135deg, #242d31 0%, #20282c 56%, #1b2327 100%);
+  box-shadow:
+    0 18px 45px #0003,
+    inset 0 1px 0 #ffffff0b;
+}
+
+.explore-page .element-story {
+  border-color: #3b484b;
+}
+
+.explore-page .story-summary,
+.explore-page .related-intro,
+.explore-page .model-note,
+.explore-page .explore-notes p {
+  color: #b2bfbb;
+}
+
+.explore-page .section-label {
+  color: #d1d9d5;
+}
+
+.explore-page .section-label > span:first-child {
+  color: #9dacaa;
+}
+
+.explore-page .hairline {
+  background: #4b585a;
+}
+
+.category-pill {
+  color: var(--mineral-muted, #d5dfda);
+  border: 1px solid color-mix(in srgb, var(--key-color, #62766a) 65%, #34413d);
+  background: color-mix(in srgb, var(--key-color, #62766a) 25%, #20282b);
+}
+
+.category-pill i {
+  background: var(--mineral-edge, #a9bba9);
+}
+
+.level-label {
+  color: #d1e0c4;
+  border-color: #52634f;
+  background: #2a352d;
+}
+
+.level-label.extension {
+  color: #e5cfaa;
+  border-color: #695844;
+  background: #342c24;
+}
+
+.atom-canvas::before {
+  background: radial-gradient(
+    ellipse,
+    #52645a33 0,
+    #34463f1c 45%,
+    transparent 73%
+  );
+}
+
+.shell-hit {
+  stroke: transparent;
+}
+
+.shell-ring {
+  stroke: #657477;
+}
+
+.is-selected .shell-ring {
+  stroke: #c5d5ac;
+  stroke-width: 1.8;
+}
+
+.electron-dot {
+  fill: #a8b9b5;
+  stroke: #222b2f;
+  filter: drop-shadow(0 1px 2px #0009);
+}
+
+.is-selected .electron-dot {
+  fill: #e0dfb2;
+  stroke: #514f3b;
+}
+
+.nucleus-symbol {
+  fill: #eff4f0;
+}
+
+.nucleus-charge {
+  fill: #c5d5c8;
+}
+
+.atom-core {
+  color: #f2f5ef;
+  background: radial-gradient(
+    circle at 30% 23%,
+    color-mix(in srgb, var(--key-color, #536d59) 62%, #d4dfd7) 0%,
+    color-mix(in srgb, var(--key-color, #536d59) 70%, #33403e) 45%,
+    #273135 100%
+  );
+  box-shadow:
+    inset 0 1px 2px #ffffff45,
+    inset -5px -7px 14px #0005,
+    0 12px 22px -7px #0009;
+}
+
+.atom-core .nucleus-charge {
+  color: #d5e2d7;
+}
+
+.atom-tag {
+  color: #b9c9c1;
+}
+
+.atom-tag > span {
+  background: #bac9ac;
+}
+
+.shell-controls button {
+  color: #c2cdc8;
+  border-color: #455357;
+  background: #273135;
+}
+
+.shell-controls button > span {
+  color: #b0c0ba;
+}
+
+.shell-controls button[aria-pressed="true"] {
+  color: #f0f4ec;
+  border-color: #83937a;
+  background: #3a493e;
+  box-shadow:
+    0 3px 0 #1a211e,
+    inset 0 1px 0 #ffffff18;
+}
+
+.shell-readout > span,
+.shell-readout small {
+  color: #b3c0bc;
+}
+
+.shell-readout strong {
+  color: #d6e2cf;
+}
+
+.shell-readout > span:last-child {
+  color: #c2d0c5;
+  border-color: #4b5b57;
+}
+
+.explore-page .element-facts {
+  border-color: #3e4a4d;
+}
+
+.explore-page .element-facts > div {
+  border-color: #3e4a4d;
+}
+
+.explore-page .element-facts span,
+.explore-page .element-facts small {
+  color: #b0bdb8;
+}
+
+.explore-page .explore-notes h2 {
+  color: #e1e8e4;
+}
+
+.configuration-note code {
+  color: #d1dec9;
+}
+
+.source-details {
+  color: #b1bfba;
+}
+
+.source-details summary {
+  color: #c4d1ca;
+}
+
+.source-details a {
+  color: #c6d2ce;
+  text-decoration-color: #7b9185;
+}
+
+.honest-empty {
+  color: #c0ccc5;
+  border-color: #596a63;
+  background: #20292b;
+}
+
+.honest-empty h3 {
+  color: #dce6d7;
+}
+
+.honest-empty p {
+  color: #b5c1bd;
+}
+
+/* Matter cards and original illustrations */
+.substance-card {
+  color: var(--text-main);
+  background: #252e32;
+  border-color: #3e4b4e;
+  box-shadow:
+    0 4px 0 #182023,
+    0 10px 20px #0003,
+    inset 0 1px 0 #ffffff0c;
+}
+
+.substance-thumbnail {
+  background: color-mix(in srgb, var(--card-tint, #61786f) 17%, #20282b);
+}
+
+.substance-card-title h3 {
+  color: #e8ede9;
+}
+
+.substance-card-title .formula {
+  color: #cad8cc;
+}
+
+.substance-card .mini-label,
+.substance-card > p {
+  color: #b5c2bc;
+}
+
+.round-arrow {
+  color: #d7e1d9;
+  border-color: #52625d;
+  background: #293438;
+}
+
+.substance-card:active {
+  box-shadow:
+    0 0 0 #182023,
+    inset 0 2px 5px #0004;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .substance-card:hover {
+    border-color: #758b7e;
+    box-shadow:
+      0 5px 0 #182023,
+      0 15px 24px #0005,
+      inset 0 1px 0 #ffffff12;
+  }
+
+  .substance-card:hover .round-arrow {
+    color: #eff4eb;
+    border-color: #7b907f;
+    background: #3b4b42;
+  }
+}
+
+.substance-art-large {
+  background: radial-gradient(
+    ellipse at 48% 38%,
+    #354247 0,
+    #222b2f 62%,
+    #1b2327 100%
+  );
+  border-color: #48565a;
+  box-shadow:
+    0 6px 0 #151b1e,
+    0 20px 42px #0005,
+    inset 0 1px 0 #ffffff12;
+}
+
+.portrait-caption,
+.portrait-note {
+  color: #b0bdb8;
+}
+
+.substance-info h1 {
+  color: #edf1ee;
+}
+
+.english-subtitle {
+  color: #afbfba;
+}
+
+.hero-formula {
+  color: #cbd9c9;
+}
+
+.substance-badges > span {
+  color: #d0dec8;
+  border-color: #4c5d51;
+  background: #29352e;
+}
+
+.substance-description {
+  color: #c0cbc7;
+}
+
+.composition {
+  border-color: #414e50;
+}
+
+.composition .mini-label {
+  color: #bdc9c3;
+}
+
+.composition-atom {
+  color: #f0f3ef;
+}
+
+.composition-item > span:last-child,
+.composition-item small,
+.composition > p {
+  color: #b2bfba;
+}
+
+.composition-item strong {
+  color: #d4e1cc;
+}
+
+.composition-divider {
+  color: #71807d;
+}
+
+/* Reactions and source records */
+.reactions-section {
+  border-color: #3d494c;
+}
+
+.reactions-heading h2 {
+  color: #e4eae6;
+}
+
+.reactions-heading h2 > span {
+  color: #bcccae;
+}
+
+.reactions-heading > p {
+  color: #b2bfba;
+}
+
+.reaction {
+  color: #e4eae7;
+  background: #232c30;
+  border-color: #3d4a4d;
+  box-shadow: inset 0 1px 0 #ffffff08;
+}
+
+.reaction-title h3 {
+  color: #e5ebe7;
+}
+
+.reaction > p,
+.reaction > p.reaction-conditions {
+  color: #b8c4bf;
+}
+
+.reaction-formula {
+  color: #e0e9e1;
+}
+
+.reaction-term small,
+.reaction-arrow > span:first-child {
+  color: #afc0b6;
+}
+
+.reaction-arrow > span:last-child {
+  color: #c1d0c2;
+}
+
+.plus {
+  color: #aab8b3;
+}
+
+.reaction-empty,
+.equation-key {
+  color: #b1beb9;
+}
+
+.source-records article {
+  border-color: #3e4a4d;
+}
+
+.source-records a {
+  color: #d7e2dd;
+}
+
+.source-records p {
+  color: #b1beb9;
+}
+
+.source-kind {
+  color: #c4d7bd;
+}
+
+.source-kind.pending {
+  color: #e1c69a;
+}
+
+.reading-dialog {
+  color: #e5ebe7;
+  border-color: #465357;
+  background: #222a2e;
+  box-shadow: 0 30px 100px #000a;
+}
+
+.reading-dialog::backdrop {
+  background: #090e11b8;
+  backdrop-filter: blur(5px);
+}
+
+.reading-dialog > p,
+.textbook-status p {
+  color: #bcc7c3;
+}
+
+.textbook-status {
+  border-color: #45544d;
+  background: #2b3531;
+}
+
+.textbook-status strong {
+  color: #d5e3cb;
+}
+
+.skip-link {
+  color: #f0f4ef;
+  border-color: #a6bc9e;
+  background: #303d36;
+}
+
+/* Semantic mineral palette takes precedence over the light inline data palette. */
+
+.element-key[data-category] .key-face,
+.key-face[data-category],
+.composition-atom[data-category] {
+  --key-color: var(--mineral-color) !important;
+  --key-ink: var(--mineral-ink) !important;
+}
+
+/* This is the single key-face surface rule. Its table selector intentionally
+   matches scene.css specificity; the hero selector also beats its pale side. */
+:is(
+  .table-page .element-grid .element-key[data-category] .key-face,
+  .explore-page .hero-key .key-face[data-category]
+) {
+  color: var(--mineral-ink) !important;
+  border-color: color-mix(in srgb, var(--mineral-edge) 50%, #283136) !important;
+  background:
+    linear-gradient(145deg, #ffffff18 0%, #ffffff05 35%, #10161918 100%),
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--mineral-color) 75%, #414c50),
+      var(--mineral-color) 72%
+    );
+  box-shadow:
+    0 4px 0 var(--mineral-side),
+    0 9px 14px #0005,
+    inset 0 1px 0 var(--key-edge-highlight),
+    inset 0 -2px 4px #0004;
+}
+
+.element-key[data-category] .atomic-number,
+.element-key[data-category] .element-name,
+.key-face[data-category] .atomic-number,
+.key-face[data-category] .element-name,
+.key-face[data-category] .element-english {
+  color: var(--mineral-muted);
+}
+
+.element-key[data-category] .element-symbol,
+.key-face[data-category] .element-symbol {
+  color: var(--mineral-ink);
+}
+
+.element-key[data-category]:focus-visible:not(:active) .key-face {
+  box-shadow:
+    0 4px 0 var(--mineral-side),
+    0 0 0 2px var(--mineral-edge),
+    0 13px 20px #0007,
+    inset 0 1px 0 #ffffff30;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .table-page
+    .element-grid
+    .element-key[data-category]:hover:not(:focus-visible):not(:active):not(
+      [aria-busy="true"]
+    )
+    .key-face {
+    box-shadow:
+      0 4px 0 var(--mineral-side),
+      0 0 0 2px var(--mineral-edge),
+      0 13px 20px #0007,
+      inset 0 1px 0 #ffffff30;
+  }
+}
+
+/* Press state wins over the semantic base shadow, hover, and focus. The
+   existing scene rule still owns the key's translateY press transform. */
+.table-page .element-grid .element-key[data-category]:active .key-face {
+  box-shadow:
+    0 0 0 var(--mineral-side),
+    inset 0 3px 6px #0006;
+}
+
+/* The H entrance owns its press shadow; keep the same mineral side and rim. */
+.table-page[data-enter="true"]
+  .element-grid
+  .element-key[data-category]
+  .key-face {
+  box-shadow:
+    0 4px 0 var(--mineral-side, #202a2d),
+    0 6px 3px #0005,
+    inset 0 1px 0 var(--key-edge-highlight, #ffffff25),
+    inset 0 -2px 3px #0002;
+}
+
+/* Hold the chosen key down while the first knowledge page downloads. */
+.table-page .element-grid .element-key[data-category][aria-busy="true"] {
+  cursor: progress;
+}
+
+.table-page
+  .element-grid
+  .element-key[data-category][aria-busy="true"]
+  .key-face {
+  transform: translateY(4px);
+  box-shadow:
+    0 0 0 var(--mineral-side),
+    inset 0 3px 6px #0006;
+}
+
+.explore-page[data-category] {
+  --key-color: var(--mineral-color) !important;
+  --key-ink: var(--mineral-ink) !important;
+}
+
+.explore-page[data-category] .atom-core {
+  --key-color: var(--mineral-color) !important;
+}
+
+.composition-atom[data-category] {
+  background:
+    linear-gradient(145deg, #ffffff18, #ffffff04),
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--mineral-color) 75%, #414c50),
+      var(--mineral-color)
+    );
+  box-shadow:
+    0 3px 0 var(--mineral-side),
+    inset 0 1px 0 var(--key-edge-highlight);
+}
+
+.category-legend button[data-category] i {
+  background: var(--mineral-color) !important;
+  border-color: var(--mineral-edge);
+  filter: none;
+}

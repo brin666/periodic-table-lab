@@ -1,0 +1,4 @@
+* text=auto eol=lf
+
+# Evidence fixtures are checked by SHA-256 and must preserve upstream bytes.
+tests/fixtures/** -text -whitespace

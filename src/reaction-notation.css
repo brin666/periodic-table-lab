@@ -1,0 +1,136 @@
+/* Conditions stay attached to the relation, including on narrow screens. */
+.substance-page .reactions-list {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.reaction {
+  min-width: 0;
+}
+
+.reaction-formula-scroll {
+  max-width: 100%;
+  margin-top: 8px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #5c6b63 transparent;
+  border-radius: 6px;
+}
+
+.reaction-formula-scroll:focus-visible {
+  outline: 2px solid #bccdad;
+  outline-offset: 3px;
+}
+
+.reaction .reaction-formula {
+  width: max-content;
+  min-width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.8em;
+  padding: 22px 4px;
+  font-size: 23px;
+  line-height: 1.4;
+}
+
+.reaction .reaction-side {
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.equation-relation {
+  flex: 0 0 auto;
+  min-width: 3.4em;
+  display: grid;
+  grid-template-rows: 0.9em 1.5em 0.9em;
+  row-gap: 0.08em;
+  justify-items: center;
+  align-items: center;
+  color: #bfd0be;
+}
+
+.equation-condition {
+  align-self: end;
+  color: #c3cec6;
+  font-size: 0.52em;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.equation-condition[data-position="below"] {
+  align-self: start;
+}
+
+.equation-sign {
+  display: block;
+  font-size: 1.45em;
+  font-weight: 400;
+  line-height: 1;
+  transform: scaleX(1.8);
+}
+
+.equation-sign[data-reversible="true"] {
+  transform: scaleX(1.3);
+}
+
+.reaction > p.reaction-context {
+  margin-bottom: 8px;
+  color: #c2cec5;
+}
+
+.substance-page .substance-title-row {
+  margin-top: 0;
+}
+
+.substance-page .portrait-note {
+  margin-top: 20px;
+}
+
+.substance-page .reactions-heading {
+  align-items: flex-start;
+  gap: 20px 32px;
+}
+
+.substance-page .reactions-heading h2 {
+  margin: 0;
+}
+
+.reactions-heading .equation-key {
+  flex: 0 1 auto;
+  margin: 0;
+  color: #b3c0b9;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.equation-key p {
+  margin: 0;
+}
+
+.equation-key span {
+  margin-left: 1em;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .reaction .reaction-formula {
+    font-size: 19px;
+    padding-block: 20px;
+    gap: 0.7em;
+  }
+
+  .reaction .plus {
+    margin-inline: 7px;
+  }
+
+  .substance-page .reactions-heading {
+    display: grid;
+    gap: 13px;
+  }
+
+  .reactions-heading .equation-key {
+    font-size: 11px;
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "PropertyTable": {
+    "Properties": [
+      {
+        "CID": 123324,
+        "MolecularFormula": "F4Xe",
+        "MolecularWeight": "207.29",
+        "IUPACName": "tetrafluoroxenon",
+        "Title": "Xenon tetrafluoride"
+      }
+    ]
+  }
+}

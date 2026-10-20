@@ -1,0 +1,299 @@
+.isotope-halo.isotope-halo--library {
+  background: transparent;
+  filter: none;
+}
+.isotope-halo--library .isotope-halo__orbit {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  width: 100%;
+  height: var(--isotope-orbit-size);
+}
+.isotope-halo--library .isotope-halo__caption {
+  top: 4px;
+  text-shadow: 0 1px 4px #101719;
+}
+.isotope-halo--library .isotope-viewport {
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  touch-action: pan-x pan-y;
+  scroll-behavior: auto;
+  border-radius: 22px;
+  mask-image:
+    linear-gradient(to right, transparent, #000 16px, #000 calc(100% - 16px), transparent),
+    linear-gradient(to bottom, transparent, #000 16px, #000 calc(100% - 16px), transparent);
+  mask-composite: intersect;
+}
+.isotope-viewport::-webkit-scrollbar { display: none; }
+.isotope-viewport:focus-visible { outline: 1px solid #9ba996; outline-offset: 2px; }
+.isotope-viewport__world { position: relative; }
+.isotope-viewport__hint {
+  position: absolute;
+  bottom: 63px;
+  left: 0;
+  width: 100%;
+  color: #bbc8bd;
+  text-align: center;
+  font-size: 9px;
+  pointer-events: none;
+  text-shadow: 0 1px 4px #101719;
+}
+.isotope-halo--library .isotope-mini {
+  width: 56px;
+  margin-left: -28px;
+}
+.isotope-halo--library .isotope-halo__all {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 34px;
+  padding: 6px 14px;
+  white-space: nowrap;
+  border: 1px solid #77867e8c;
+  border-radius: 20px;
+  color: #e5eee7;
+  background: #263438;
+  font-size: 11px;
+  box-shadow: 0 3px 10px #0006;
+}
+.isotope-halo--library .isotope-halo__all:hover {
+  background: #344349;
+}
+.isotope-halo--library .isotope-halo__note {
+  bottom: 1px;
+  margin: 0;
+  font-size: 9px;
+  text-shadow: 0 1px 4px #101719;
+}
+.isotope-dialog.isotope-library {
+  width: min(520px, calc(100vw - 32px));
+}
+.isotope-library[open] {
+  animation: isotope-library-show 180ms ease-out both;
+}
+.isotope-library .isotope-dialog__close {
+  color: #e9efea;
+  z-index: 1;
+}
+.isotope-library h2 {
+  padding-right: 13px;
+}
+.isotope-library h2:focus {
+  outline: none;
+}
+.isotope-library__intro {
+  color: #c0ccc6;
+  font-size: 12px;
+  line-height: 1.8;
+  margin: 12px 0 20px;
+}
+.isotope-library__filter {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  font-size: 12px;
+}
+.isotope-library__filter input {
+  min-width: 0;
+  width: 100%;
+  padding: 9px 12px;
+  color: #ecf2ed;
+  background: #172226;
+  border: 1px solid #6b7a74;
+  border-radius: 10px;
+  font: inherit;
+}
+.isotope-library__filter input::placeholder {
+  color: #b3c0ba;
+}
+.isotope-library__count {
+  margin: 15px 0 10px;
+  color: #b7c7bf;
+  font-size: 11px;
+}
+.isotope-library__columns,
+.isotope-library__row {
+  display: grid;
+  grid-template-columns: 65px minmax(0, 1fr) 96px 14px;
+  align-items: center;
+  gap: 8px;
+}
+.isotope-library__columns {
+  padding: 0 9px 9px;
+  font-size: 10px;
+  color: #b6c6be;
+  border-bottom: 1px solid #52625b;
+}
+.isotope-library__rows {
+  max-height: min(410px, 43dvh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: #74877a #202b2d;
+  scrollbar-width: thin;
+}
+.isotope-library__row {
+  width: 100%;
+  min-height: 53px;
+  padding: 9px;
+  color: #e9efea;
+  text-align: left;
+  border-bottom: 1px solid #46575080;
+  border-radius: 0;
+  background: transparent;
+}
+.isotope-library__row:hover {
+  background: #526b5b2b;
+}
+.isotope-library__row:focus-visible {
+  position: relative;
+  outline-offset: -3px;
+}
+.isotope-library__mass {
+  color: #c3d1c9;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.isotope-library__nuclide {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 23px;
+  line-height: 1.2;
+}
+.isotope-library__nuclide sup {
+  margin-right: 3px;
+  font-size: 11px;
+}
+.isotope-library__nuclide small {
+  color: #e7c79b;
+  font-size: 9px;
+}
+.isotope-library__classification {
+  font-size: 11px;
+  color: #d0dfc9;
+}
+.isotope-library__classification[data-stability="unknown"] {
+  color: #ddd0b9;
+}
+.isotope-library__empty {
+  padding: 30px 10px;
+  color: #c5d0ca;
+  text-align: center;
+  font-size: 12px;
+}
+.isotope-library__scope {
+  color: #b5c5bc;
+  font-size: 10px;
+  line-height: 1.8;
+  margin: 14px 0 0;
+}
+.isotope-library__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  margin-bottom: 22px;
+  background: transparent;
+  color: #d8e5d9;
+  font-size: 12px;
+}
+.isotope-library__uncertain {
+  display: inline-block;
+  font-size: 11px;
+  color: #ead2ad;
+  margin-left: 9px;
+}
+.isotope-library__evaluation {
+  margin: 18px 0 0;
+  border-top: 1px solid #46574e;
+  font-size: 11px;
+}
+.isotope-library__evaluation > div {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid #46574e;
+}
+.isotope-library__evaluation dt {
+  color: #bfccc5;
+}
+.isotope-library__evaluation dd {
+  margin: 0;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.isotope-library__evaluation small {
+  display: block;
+  color: #b5c4bc;
+  font-size: 10px;
+}
+.isotope-library__evaluation-note {
+  color: #d6cbb8;
+  font-size: 11px;
+  line-height: 1.8;
+  margin-top: 10px;
+}
+.isotope-library .isotope-source a {
+  overflow-wrap: anywhere;
+  color: #d0e0d0;
+}
+@keyframes isotope-library-show {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+html[data-reduced-motion="true"] .isotope-library[open],
+.isotope-library[data-reduced="true"][open] {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .isotope-library[open] {
+    animation: none;
+  }
+}
+@media (max-width: 420px) {
+  .isotope-halo--library .isotope-mini {
+    width: 52px;
+    margin-left: -26px;
+  }
+  .isotope-dialog.isotope-library {
+    padding: 24px 20px;
+    width: calc(100vw - 24px);
+    max-height: calc(100dvh - 24px);
+  }
+  .isotope-library h2 {
+    font-size: 23px;
+  }
+  .isotope-library h2 small {
+    display: block;
+    margin: 6px 0 0;
+  }
+  .isotope-library__columns,
+  .isotope-library__row {
+    grid-template-columns: 52px minmax(0, 1fr) 80px 12px;
+    gap: 5px;
+  }
+  .isotope-library__classification {
+    font-size: 10px;
+  }
+  .isotope-library__evaluation > div {
+    grid-template-columns: 90px minmax(0, 1fr);
+    gap: 9px;
+  }
+  .isotope-library__filter {
+    gap: 10px;
+  }
+}

@@ -1,0 +1,28 @@
+/* Keep English card faces within the fixed desktop mind-map spacing. */
+@media (min-width: 721px) {
+  html[lang="en"] .km-card-open {
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr) 48px;
+    column-gap: 8px;
+    row-gap: 6px;
+    padding: 12px 13px;
+  }
+
+  html[lang="en"] .km-card-open .km-sticker {
+    width: 48px;
+    height: 48px;
+  }
+
+  html[lang="en"] .km-card-open h2 {
+    font-size: 18px;
+    line-height: 1.2;
+    letter-spacing: -0.018em;
+    text-wrap: pretty;
+  }
+
+  html[lang="en"] .km-card-open p {
+    font-size: 13px;
+    line-height: 1.45;
+    text-wrap: pretty;
+  }
+}

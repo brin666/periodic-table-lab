@@ -1,0 +1,64 @@
+/* One automatic H press. The camera and all keys share one cancellable clock. */
+body:has(.table-page[data-enter="true"]) .site-header,
+.table-page[data-enter="true"]
+  :is(
+    .board-toolbar,
+    .mobile-scroll-hint,
+    .category-legend,
+    .axis-caption,
+    .group-number,
+    .period-number,
+    .series-label,
+    .series-placeholder,
+    .home-workbench
+  ) {
+  /* Keep visibility out of the animation: it forces opacity fades onto the
+     main thread in Chromium. The entrance effect applies inert until cleanup. */
+  opacity: 0;
+  pointer-events: none;
+}
+.table-page[data-enter="true"] .table-scroll {
+  overflow: visible;
+  scrollbar-color: transparent transparent;
+}
+html:has(.table-page[data-enter="true"]) {
+  scrollbar-color: transparent transparent;
+}
+.table-page[data-enter="true"] .element-grid {
+  transform-origin: 0 0;
+  will-change: transform;
+}
+.table-page[data-enter="true"] .element-key {
+  pointer-events: none;
+}
+.table-page[data-enter="true"] .key-arrival {
+  animation: none;
+  opacity: 0;
+  will-change: transform, opacity;
+  z-index: 1;
+}
+.entrance-key-shadow {
+  position: absolute;
+  inset: 5px -7px -15px;
+  border-radius: 15px;
+  background: radial-gradient(ellipse, #000c 22%, #0007 50%, transparent 74%);
+  opacity: 0;
+  pointer-events: none;
+}
+.entrance-key-light {
+  position: absolute;
+  inset: 1px;
+  border-radius: 7px;
+  background: linear-gradient(145deg, #efffff, transparent 65%);
+  opacity: 0;
+  pointer-events: none;
+}
+.table-page[data-enter="true"] .element-key .key-face {
+  transform: none;
+  transition: none;
+  box-shadow:
+    0 4px 0 var(--mineral-side, #202a2d),
+    0 6px 3px #0005,
+    inset 0 1px 0 var(--key-edge-highlight, #ffffff25),
+    inset 0 -2px 3px #0002;
+}

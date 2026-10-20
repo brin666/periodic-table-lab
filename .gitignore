@@ -1,0 +1,40 @@
+node_modules/
+dist/
+*.tsbuildinfo
+test-results/
+playwright-report/
+*.log
+.preview.pid
+.finesse/
+.env
+.env.*
+!.env.example
+.feedback-data/
+
+# Local research, deliveries, recordings and deployments are not source releases.
+/qa/
+/research/
+/handoff/
+/media/
+/build/
+/public/exports/
+/public/stickers/hydrogen-v1/
+/PRODUCT.md
+
+# Historical one-off import tools require the private research workspace.
+/scripts/pilot.mjs
+/scripts/import-elements.py
+/scripts/import-knowledge-stickers.mjs
+/scripts/build-hydrogen-knowledge.mjs
+/scripts/build-knowledge25.ts
+/server/deploy/
+
+# Credentials and local-only archives must never enter the public repository.
+*.pem
+*.key
+*.pfx
+*.p12
+*.zip
+*.7z
+.DS_Store
+Thumbs.db

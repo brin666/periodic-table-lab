@@ -1,0 +1,47 @@
+import type { Source } from "./types";
+
+export const elementSources: Source[] = [
+  {
+    id: "pubchem-periodic-table",
+    title: "PubChem 周期表：官方机器可读数据",
+    url: "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/CSV",
+    kind: "reference",
+    publisher: "美国国立卫生研究院 NIH / NCBI PubChem",
+    accessed: "2026-10-11",
+    verification: "data-read",
+    note: "实际下载并解析 118 行 CSV，采用原子序数、符号、英文名、化学类别和电子构型；递归展开稀有气体核后按主量子数计算电子层。Lr 构型另依 RSC 修订。未采用该 CSV 的 AtomicMass 列作为标准原子量。",
+  },
+  {
+    id: "ciaaw-atomic-weights-2024",
+    title: "Abridged Standard Atomic Weights 2024",
+    url: "https://ciaaw.org/abridged-atomic-weights.htm",
+    kind: "reference",
+    publisher: "IUPAC 同位素丰度与原子量委员会 CIAAW",
+    accessed: "2026-10-11",
+    verification: "data-read",
+    edition: "2024",
+    note: "逐项解析官方表格，保留简化标准原子量及 ± 不确定度。— 表示没有标准原子量，不以某个同位素质量替代；数值无量纲。包含 2024 年锆、钆、镥修订。",
+  },
+  {
+    id: "ccs-chinese-periodic-table",
+    title: "中国化学会：元素周期表（中文版）",
+    url: "https://www.chemsoc.org.cn/international/news/a2613.html",
+    kind: "reference",
+    publisher: "中国化学会",
+    accessed: "2026-10-11",
+    verification: "data-read",
+    edition: "2019-01-23 PDF",
+    pages: "1",
+    note: "实际读取发布页、下载并渲染官方中文周期表，核对中文名与表格位置；Unicode 生僻字采用简体字形。仅用于名称与布局，原子量采用 CIAAW 2024。",
+  },
+  {
+    id: "rsc-lawrencium",
+    title: "Lawrencium — Element information, properties and uses",
+    url: "https://periodic-table.rsc.org/element/103/lawrencium",
+    kind: "reference",
+    publisher: "英国皇家化学会 RSC",
+    accessed: "2026-10-11",
+    verification: "body-read",
+    note: "实际读取 Fact box 的 [Rn] 5f¹⁴ 7s² 7p¹ 及正文关于相对论计算的解释，用于替换 PubChem CSV 中 Lr 的旧 6d¹ 构型。",
+  },
+];

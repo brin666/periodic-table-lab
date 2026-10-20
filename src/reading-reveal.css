@@ -1,0 +1,76 @@
+/* Stable reading layout; phrases fade without deleting, typing, or reflowing text. */
+.reading-reveal {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 240ms var(--scene-ease, ease-out),
+    transform 240ms var(--scene-ease, ease-out);
+}
+
+.reading-reveal[data-read-state="pending"] {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.reading-reveal .stream-piece {
+  opacity: 0;
+  transition: opacity 220ms var(--scene-ease, ease-out);
+}
+
+.reading-reveal[data-read-state="visible"] .stream-piece {
+  opacity: 1;
+  transition-delay: var(--piece-delay, 0ms);
+}
+
+.stream-atomic {
+  white-space: nowrap;
+}
+
+.element-facts .stream-text,
+.element-facts .stream-visual,
+.element-facts .stream-piece {
+  display: inline;
+  margin: 0;
+  color: inherit;
+  font: inherit;
+}
+
+.stream-text > .sr-only {
+  margin: -1px;
+  user-select: none;
+}
+
+.element-facts.reading-reveal > .reading-item {
+  opacity: 0;
+  transform: translateY(5px);
+  transition:
+    opacity 220ms var(--scene-ease, ease-out),
+    transform 220ms var(--scene-ease, ease-out);
+}
+
+.element-facts.reading-reveal[data-read-state="visible"] > .reading-item {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--read-order, 0) * 65ms);
+}
+
+.reading-reveal[data-read-instant="true"],
+.reading-reveal[data-read-instant="true"] .stream-piece,
+.element-facts.reading-reveal[data-read-instant="true"] > .reading-item,
+html[data-reduced-motion="true"] .reading-reveal,
+html[data-reduced-motion="true"] .reading-reveal .stream-piece,
+html[data-reduced-motion="true"] .element-facts.reading-reveal > .reading-item {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reading-reveal,
+  .reading-reveal .stream-piece,
+  .element-facts.reading-reveal > .reading-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,1059 @@
+/*
+ * Element knowledge maps.
+ * The camera and node positions belong to React; this file owns their surfaces,
+ * legibility, focus states, and the small-screen reading layout.
+ */
+body:has(.knowledge-map) .site-footer {
+  display: none;
+}
+
+body:has(.knowledge-map) main.knowledge-map {
+  width: 100%;
+  max-width: none;
+  margin-inline: auto;
+}
+
+.knowledge-map {
+  --km-panel: #20282c;
+  --km-panel-raised: #273135;
+  --km-panel-edge: #485558;
+  --km-copy: #e7ece9;
+  --km-copy-soft: #bdc8c3;
+  --km-copy-quiet: #a6b3ad;
+  --km-mineral: #536d59;
+  --km-mineral-side: #35483b;
+  --km-mineral-edge: #829989;
+  --km-gold: #e6d28e;
+  --km-gold-ink: #29271f;
+  padding-top: 4px;
+  padding-bottom: 0;
+  color: var(--km-copy);
+}
+
+.km-navigation {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--km-copy-soft);
+}
+
+.km-navigation .back-button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #c5d0ca;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 160ms var(--scene-ease, ease);
+}
+
+.km-navigation .back-button:hover {
+  color: #eef3ed;
+}
+
+.km-tutorial-replay {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 4px;
+  color: var(--km-copy-soft);
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.km-tutorial-replay:hover {
+  color: var(--km-copy);
+}
+
+/* One local hint; the map and its real controls remain stable and available. */
+.km-tutorial {
+  position: fixed;
+  z-index: 95;
+  aspect-ratio: 232 / 126;
+  overflow: hidden;
+  border: 1px solid #dce3d638;
+  border-radius: 11px;
+  background: #253033;
+  box-shadow: 0 8px 24px #0006;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-6px, 4px) scale(0.95);
+  transform-origin: 0 100%;
+  transition:
+    opacity 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.km-tutorial[data-step="preview"] {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+.km-tutorial img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.km-core-light {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(145deg, #fff2b3b8, #c9e8b077 60%, #d9edc03d);
+  box-shadow: inset 0 1px 0 #fff8;
+  transition: opacity 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.km-core-key > span {
+  z-index: 1;
+}
+.km-core-key[data-tutorial-target="true"] .km-core-light {
+  opacity: 0.95;
+}
+.km-core::after {
+  content: "";
+  position: absolute;
+  inset: -36px;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse, #eee0a82c 0%, #eee0a800 70%);
+  opacity: 0;
+  transition: opacity 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.km-core[data-tutorial-target="true"]::after {
+  opacity: 1;
+}
+.km-tutorial-replay:focus-visible {
+  outline: 2px solid #c6d0cb;
+  outline-offset: 3px;
+}
+.km-tutorial[data-reduced="true"] {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .km-tutorial {
+    transform: none;
+  }
+}
+
+.km-stage {
+  position: relative;
+  width: 100%;
+  height: min(900px, calc(100svh - 175px));
+  min-height: 620px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid #354145;
+  border-radius: 24px;
+  background:
+    radial-gradient(
+      ellipse at 50% 46%,
+      #2a353733 0,
+      #222b2e17 39%,
+      transparent 72%
+    ),
+    linear-gradient(145deg, #20282c 0%, #1b2327 56%, #192125 100%);
+  box-shadow:
+    0 18px 42px #0003,
+    inset 0 1px 0 #ffffff0b;
+}
+
+.km-stage::before,
+.km-stage::after {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  pointer-events: none;
+}
+
+.km-stage::before {
+  inset: 18px;
+  border: 1px solid #ffffff08;
+  border-radius: 17px;
+}
+
+.km-stage::after {
+  inset: 0;
+  opacity: 0.22;
+  background-image: radial-gradient(#9baea317 0.65px, transparent 0.65px);
+  background-size: 23px 23px;
+  mask-image: radial-gradient(ellipse at center, black 0%, transparent 82%);
+}
+
+.km-camera {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  overflow: visible;
+  transform-origin: 0 0;
+  transition: none;
+  will-change: auto;
+}
+
+.km-camera:is(
+  [data-camera-state="following"],
+  [data-camera-state="returning"],
+  [data-camera-state="keyboard"]
+) {
+  will-change: transform;
+}
+
+.km-connections {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.km-connections path {
+  fill: none;
+  stroke: #77887e;
+  stroke-width: 1.7px;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  vector-effect: non-scaling-stroke;
+  transition:
+    d 280ms var(--scene-ease, cubic-bezier(0.22, 0.85, 0.25, 1)),
+    opacity 280ms var(--scene-ease, cubic-bezier(0.22, 0.85, 0.25, 1)),
+    stroke-dashoffset 280ms var(--scene-ease, cubic-bezier(0.22, 0.85, 0.25, 1)),
+    stroke 280ms var(--scene-ease, cubic-bezier(0.22, 0.85, 0.25, 1));
+}
+
+.km-connections path[data-active="true"] {
+  stroke: #bcc89f;
+  stroke-width: 2.1px;
+  stroke-dashoffset: 0;
+  opacity: 0.7;
+}
+
+.km-core {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: max-content;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.km-core-key.key-face {
+  position: relative;
+  display: grid;
+  width: 76px;
+  height: 84px;
+  min-width: 76px;
+  min-height: 84px;
+  place-items: center;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid
+    color-mix(in srgb, var(--mineral-edge, var(--km-mineral-edge)) 62%, #283136);
+  border-radius: 14px;
+  color: var(--mineral-ink, #f0f4ef);
+  background:
+    linear-gradient(145deg, #ffffff1d 0%, #ffffff07 35%, #10161920 100%),
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--mineral-color, var(--km-mineral)) 75%, #414c50),
+      var(--mineral-color, var(--km-mineral)) 72%
+    );
+  box-shadow:
+    0 5px 0 var(--mineral-side, var(--km-mineral-side)),
+    0 12px 22px #0006,
+    inset 0 1px 0 #ffffff36,
+    inset 0 -2px 5px #0004;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    transform 180ms var(--press-ease, cubic-bezier(0.2, 0.8, 0.3, 1.2)),
+    border-color 180ms var(--scene-ease, ease),
+    box-shadow 180ms var(--scene-ease, ease),
+    filter 180ms var(--scene-ease, ease);
+}
+
+.km-core-key.key-face:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 var(--mineral-side, var(--km-mineral-side)),
+    0 5px 9px #0005,
+    inset 0 2px 5px #0004;
+  transition-duration: 70ms;
+  transition-timing-function: ease-out;
+}
+
+.km-core-key.key-face[data-category="nonmetal"] {
+  --mineral-color: #536d59;
+  --mineral-side: #35483b;
+  --mineral-edge: #829989;
+  --mineral-ink: #f0f4ef;
+}
+
+.km-core-key .element-symbol {
+  position: absolute;
+  inset-inline: 0;
+  top: 25px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: var(--mineral-ink, #f0f4ef);
+  font-size: 34px;
+  font-weight: 680;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-align: center;
+}
+
+.km-core-key .element-name {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 8px;
+  margin: 0;
+  color: #dfe8df;
+  font-size: 11px;
+  line-height: 1;
+  text-align: center;
+}
+
+.km-core-key .atomic-number {
+  position: absolute;
+  z-index: 1;
+  top: 7px;
+  left: 8px;
+  margin: 0;
+  padding: 0;
+  color: #e5eee6;
+  font-size: 10px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.km-branch-group {
+  display: contents;
+}
+
+.km-branch {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 170px;
+  min-width: 44px;
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border: 1px solid
+    color-mix(in srgb, var(--mineral-edge, #829989) 45%, #293436);
+  border-radius: 18px;
+  color: #eff4ef;
+  background:
+    linear-gradient(145deg, #ffffff15, #ffffff04 48%, #10171918),
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--mineral-color, var(--km-mineral)) 80%, #43544a),
+      var(--mineral-color, var(--km-mineral)) 75%
+    );
+  box-shadow:
+    0 5px 0 var(--mineral-side, var(--km-mineral-side)),
+    0 12px 20px #0005,
+    inset 0 1px 0 #ffffff26,
+    inset 0 -2px 4px #0003;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    transform 280ms var(--scene-ease, cubic-bezier(0.22, 0.85, 0.25, 1)),
+    opacity 220ms var(--scene-ease, ease),
+    border-color 180ms var(--scene-ease, ease),
+    box-shadow 180ms var(--scene-ease, ease),
+    color 180ms var(--scene-ease, ease),
+    visibility 0s linear;
+}
+
+.km-branch-cards {
+  display: contents;
+}
+
+.km-branch strong {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: block;
+  color: #f1f5f0;
+  font-size: 16px;
+  font-weight: 590;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.km-branch[data-active="false"] {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition-delay: 0s, 0s, 0s, 0s, 0s, 280ms;
+}
+
+.km-branch[data-active="true"] {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.km-card {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 260px;
+  min-height: 148px;
+  overflow: visible;
+  border: 1px solid #465357;
+  border-radius: 18px;
+  color: var(--km-copy);
+  background:
+    linear-gradient(148deg, #ffffff08 0%, transparent 36%),
+    linear-gradient(160deg, #293236 0%, #222a2e 72%, #20282c 100%);
+  box-shadow:
+    0 5px 0 #161e21,
+    0 15px 30px #0005,
+    inset 0 1px 0 #ffffff12;
+  opacity: 1;
+  transition:
+    transform 280ms var(--scene-ease, cubic-bezier(0.22, 0.85, 0.25, 1)),
+    opacity 220ms var(--scene-ease, ease),
+    border-color 180ms var(--scene-ease, ease),
+    box-shadow 180ms var(--scene-ease, ease),
+    visibility 0s linear;
+}
+
+.km-card[data-active="false"] {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition-delay: 0s, 0s, 0s, 0s, 280ms;
+}
+
+.km-card[data-active="true"] {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.km-card[data-focused="true"],
+.km-card:focus-within {
+  border-color: #87968d;
+  box-shadow:
+    0 5px 0 #161e21,
+    0 17px 34px #0006,
+    0 0 0 1px #9bab9133,
+    inset 0 1px 0 #ffffff1b;
+}
+
+.km-card-open {
+  position: relative;
+  width: 100%;
+  min-height: 184px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 56px;
+  align-content: start;
+  column-gap: 12px;
+  row-gap: 12px;
+  padding: 18px 16px;
+  border: 0;
+  border-radius: inherit;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.km-card-open .km-sticker {
+  z-index: 1;
+  position: static;
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  width: 56px;
+  height: 56px;
+}
+
+.km-card-open h2 {
+  position: relative;
+  z-index: 1;
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  margin: 0;
+  color: #edf1ed;
+  font-size: 22px;
+  font-weight: 620;
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+.km-card-open:not(:has(.km-sticker)) h2 {
+  grid-column: 1 / -1;
+}
+
+.km-card-open p {
+  position: relative;
+  z-index: 1;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin: 0;
+  padding-inline-end: 4px;
+  color: #bec9c4;
+  font-size: 16px;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.km-source-trigger {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 5px;
+  border: 0;
+  border-radius: 8px;
+  color: #bdc9c2;
+  background: transparent;
+  font: inherit;
+  font-size: 10px;
+  line-height: 1.3;
+  text-align: right;
+  cursor: pointer;
+  transition:
+    color 160ms var(--scene-ease, ease),
+    background-color 160ms var(--scene-ease, ease);
+}
+
+.km-source-trigger:hover,
+.km-source[open] > .km-source-trigger {
+  color: #e6eee5;
+  background: #ffffff08;
+}
+
+.km-source-panel {
+  position: absolute;
+  z-index: 10;
+  right: -1px;
+  bottom: calc(100% + 8px);
+  width: min(280px, calc(100vw - 40px));
+  max-height: min(380px, 70svh);
+  overflow: auto;
+  padding: 15px;
+  border: 1px solid #59676a;
+  border-radius: 15px;
+  color: #dce4df;
+  background: linear-gradient(150deg, #303a3e, #20282c 72%);
+  box-shadow:
+    0 18px 42px #0009,
+    inset 0 1px 0 #ffffff12;
+  scrollbar-color: #64736d #222b2e;
+}
+
+.km-source-panel[hidden] {
+  display: none;
+}
+
+.km-source-panel > div {
+  display: grid;
+  gap: 7px;
+  padding: 9px 0;
+  border-top: 1px solid #ffffff12;
+}
+
+.km-source-panel > div:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.km-source-panel h3,
+.km-source-panel h4 {
+  margin: 0 0 9px;
+  color: #e9eee9;
+  font-size: 12px;
+  font-weight: 590;
+  line-height: 1.4;
+}
+
+.km-source-panel p {
+  margin: 4px 0 0;
+  color: #b8c4be;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.km-source-panel a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #d9e4dc;
+  text-decoration-color: #829b89;
+  text-underline-offset: 3px;
+}
+
+.km-sticker {
+  display: inline-grid;
+  width: 56px;
+  height: 56px;
+  place-items: center;
+  pointer-events: none;
+}
+
+.km-sticker img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  object-fit: contain;
+}
+
+.km-highlight {
+  padding: 0.05em 0.22em 0.1em;
+  border-radius: 0.22em 0.16em 0.26em 0.17em;
+  color: var(--km-gold-ink);
+  background: var(--km-gold);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  font-weight: 640;
+  line-height: 1.7;
+}
+
+.km-card-open .km-highlight {
+  padding-inline: 0.16em;
+  font-size: 0.94em;
+}
+
+.km-card-dialog {
+  width: min(620px, calc(100vw - 32px));
+  max-width: 620px;
+  max-height: 85svh;
+  overflow: auto;
+  padding: 25px 28px 24px;
+  border: 1px solid #59676a;
+  border-radius: 24px;
+  color: var(--km-copy);
+  background:
+    radial-gradient(ellipse at 9% 0%, #5263582c, transparent 45%),
+    linear-gradient(155deg, #293236, #20282c 66%, #1d2529);
+  box-shadow:
+    0 30px 100px #000b,
+    inset 0 1px 0 #ffffff13;
+  scrollbar-color: #64736d #222b2e;
+  overscroll-behavior: contain;
+}
+
+.km-card-dialog::backdrop {
+  background: #080d10c9;
+  backdrop-filter: blur(6px);
+}
+
+.km-dialog-top {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: #b8c5be;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.km-dialog-top button {
+  width: 44px;
+  height: 44px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid #536065;
+  border-radius: 13px;
+  color: #d7e0da;
+  background: #293236;
+  cursor: pointer;
+}
+
+.km-sticker-large {
+  width: 100px;
+  height: 100px;
+  display: grid;
+  float: right;
+  place-items: center;
+  margin: 7px 0 8px 14px;
+}
+
+.km-dialog-content {
+  display: block;
+  padding: 6px 0 0;
+}
+
+.km-card-dialog > h2 {
+  position: relative;
+  z-index: 1;
+  max-width: 410px;
+  margin: 10px 0 14px;
+  color: #f0f3ef;
+  font-size: clamp(22px, 4vw, 29px);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+}
+
+.km-dialog-content p {
+  margin: 0 0 14px;
+  color: #c5cfca;
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.km-card-dialog > .km-dialog-summary {
+  position: relative;
+  z-index: 1;
+  max-width: 390px;
+  margin: 0 0 20px;
+  color: #dbe3dc;
+  font-size: 17px;
+  font-weight: 540;
+  line-height: 1.7;
+}
+
+.km-dialog-footer {
+  clear: both;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 52px;
+  margin-top: 20px;
+  padding-top: 9px;
+  border-top: 1px solid #ffffff17;
+  color: #aebbb4;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.km-dialog-footer > span {
+  color: #aebbb4;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.km-dialog-footer .km-source-trigger {
+  padding: 0 11px;
+  border: 1px solid #516055;
+  border-radius: 12px;
+  color: #d3dfd1;
+  background: #29352e;
+}
+
+.km-dialog-footer .km-source-trigger:hover {
+  color: #f0f4ed;
+  background: #35443a;
+}
+
+.km-dialog-footer .km-source {
+  width: 100%;
+}
+
+.km-dialog-footer .km-source-panel {
+  position: static;
+  width: 100%;
+  max-height: min(340px, 40svh);
+  margin-top: 12px;
+}
+
+.km-dialog-footer button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 11px;
+  border: 1px solid #516055;
+  border-radius: 12px;
+  color: #d3dfd1;
+  background: #29352e;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .km-core-key.key-face:hover:not(:active) {
+    transform: translateY(-2px);
+    filter: brightness(1.06);
+    border-color: var(--mineral-edge, var(--km-mineral-edge));
+  }
+
+  .km-branch:hover:not(:focus-visible) {
+    border-color: color-mix(in srgb, var(--mineral-edge, #829989) 85%, white);
+    box-shadow:
+      0 5px 0 var(--mineral-side, var(--km-mineral-side)),
+      0 17px 25px #0007,
+      inset 0 1px 0 #ffffff35,
+      inset 0 -2px 4px #0003;
+  }
+
+  .km-card-open:hover .km-card-shine {
+    opacity: 1;
+  }
+
+  .km-card-open:hover .km-card-shine,
+  .km-card-open:focus-visible .km-card-shine {
+    background: #ffffff08;
+  }
+}
+
+.km-card-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 180ms var(--scene-ease, ease),
+    background-color 180ms var(--scene-ease, ease);
+}
+
+.knowledge-map[data-reduced="true"] .km-camera,
+.knowledge-map[data-reduced="true"] .km-core-key,
+.knowledge-map[data-reduced="true"] .km-branch-group,
+.knowledge-map[data-reduced="true"] .km-branch,
+.knowledge-map[data-reduced="true"] .km-card,
+.knowledge-map[data-reduced="true"] .km-connections path,
+.knowledge-map[data-reduced="true"] .km-card-shine,
+.knowledge-map[data-reduced="true"] .km-source-trigger {
+  transition: none !important;
+  animation: none !important;
+}
+
+.knowledge-map[data-reduced="true"] .km-branch[data-active="false"],
+.knowledge-map[data-reduced="true"] .km-card[data-active="false"] {
+  visibility: hidden;
+}
+
+@media (max-width: 1000px) and (min-width: 701px) {
+  .knowledge-map {
+    padding-top: 0;
+  }
+
+  .km-stage {
+    height: min(820px, calc(100svh - 175px));
+    min-height: 580px;
+  }
+}
+
+@media (max-width: 700px), (max-width: 1100px) and (pointer: coarse) {
+  body:has(.knowledge-map) main.knowledge-map {
+    padding-top: 0;
+    padding-bottom: 24px;
+  }
+
+  .knowledge-map {
+    --km-mobile-pad: 14px;
+  }
+
+  .km-navigation {
+    min-height: 50px;
+    gap: 8px;
+  }
+
+  .km-navigation .back-button {
+    min-width: 44px;
+    gap: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .km-stage {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+    border-radius: 19px;
+  }
+
+  .km-stage::before {
+    inset: 9px;
+    border-radius: 13px;
+  }
+
+  .km-stage::after {
+    opacity: 0.12;
+  }
+
+  .km-camera {
+    position: static;
+    width: 100% !important;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow: visible;
+    transform: none !important;
+    transform-origin: initial;
+    transition: none;
+    will-change: auto;
+  }
+
+  .km-connections {
+    display: none;
+  }
+
+  .km-core {
+    position: relative;
+    top: auto;
+    left: auto;
+    align-self: center;
+    margin: 25px auto 25px;
+    transform: none;
+  }
+
+  .km-core-key.key-face {
+    width: 72px;
+    height: 80px;
+    min-width: 72px;
+    min-height: 80px;
+  }
+
+  .km-branch-group {
+    display: block;
+    position: relative;
+    height: auto;
+    margin: 0 var(--km-mobile-pad) 17px;
+    interpolate-size: allow-keywords;
+    transition:
+      height 280ms var(--scene-ease, ease),
+      margin-bottom 280ms var(--scene-ease, ease);
+  }
+
+  .km-branch-cards {
+    display: block;
+  }
+
+  .km-branch-group[data-active="false"] {
+    height: 0;
+    margin-bottom: 0;
+    overflow: hidden;
+  }
+
+  .km-branch {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    min-height: 54px;
+    transform: none !important;
+    border-radius: 15px;
+  }
+
+  .km-card {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    margin-top: 11px;
+    transform: none !important;
+    border-radius: 16px;
+    interpolate-size: allow-keywords;
+    transition:
+      height 280ms var(--scene-ease, ease),
+      margin-top 280ms var(--scene-ease, ease),
+      opacity 220ms var(--scene-ease, ease),
+      visibility 0s linear;
+  }
+
+  .km-card[data-active="false"] {
+    height: 0;
+    margin-top: 0;
+    overflow: hidden;
+    border-width: 0;
+    transition-delay: 0s, 0s, 0s, 280ms;
+  }
+
+  .km-card-open {
+    min-height: 0;
+    padding: 18px 15px;
+  }
+
+  .km-source-panel {
+    right: -2px;
+    width: min(300px, calc(100vw - 64px));
+  }
+
+  .km-card-dialog {
+    padding: 18px 18px 17px;
+    border-radius: 20px;
+  }
+
+  .km-sticker-large {
+    width: 92px;
+    height: 92px;
+    margin: 7px 0 8px 12px;
+  }
+
+  .km-dialog-content p {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .km-card-dialog > .km-dialog-summary {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .km-dialog-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+}
+
+@media (max-width: 360px) {
+  .km-navigation .back-button {
+    font-size: 11px;
+  }
+
+  .km-card-dialog {
+    padding-inline: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .knowledge-map .km-camera,
+  .knowledge-map .km-core-key,
+  .knowledge-map .km-branch-group,
+  .knowledge-map .km-branch,
+  .knowledge-map .km-card,
+  .knowledge-map .km-connections path,
+  .knowledge-map .km-card-shine,
+  .knowledge-map .km-source-trigger {
+    transition: none !important;
+    animation: none !important;
+  }
+}

@@ -1,0 +1,164 @@
+/* Language controls share the site's subdued mineral palette. */
+.language-switch {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.language-switch button {
+  padding: 7px 9px;
+  border-radius: 7px;
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--muted);
+}
+.language-switch button[aria-pressed="true"] {
+  background: #9dac9130;
+  color: var(--ink);
+}
+html[lang="en"] .wordmark {
+  letter-spacing: -0.4px;
+  font-size: 20px;
+}
+html[lang="en"] .header-caption {
+  display: none;
+}
+html[lang="en"] .learning-switch {
+  width: 275px;
+  min-width: 0;
+}
+html[lang="en"] .learning-switch button {
+  white-space: nowrap;
+  padding-inline: 12px;
+  min-width: 0;
+}
+html[lang="en"] .element-key .element-name,
+html[lang="en"] .compound-workbench__key-face .element-name {
+  font-size: 10px !important;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+}
+html[lang="en"] .element-name {
+  overflow-wrap: anywhere;
+}
+html[lang="en"] .table-page .element-grid .element-key .element-name {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-family: "DM Sans", "Segoe UI", sans-serif;
+  font-size: clamp(8px, calc(var(--table-key-width) * 0.14), 11px) !important;
+  line-height: 1.05;
+}
+html[lang="en"] .table-page .element-grid .element-key .element-symbol {
+  inset-block-start: calc(var(--table-key-height) * 0.27);
+  font-size: clamp(18px, calc(var(--table-key-height) * 0.28), 50px);
+}
+html[lang="en"] .large .element-name {
+  font-size: 13px;
+  letter-spacing: -0.3px;
+}
+html[lang="en"] .category-legend {
+  flex-wrap: wrap;
+  row-gap: 9px;
+}
+html[lang="en"] .series-placeholder strong {
+  font-size: 12px;
+}
+html[lang="en"] .series-label {
+  font-size: 12px;
+}
+html[lang="en"] .shell-readout {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+html[lang="en"] .substance-title-row {
+  flex-wrap: wrap;
+  gap: 18px;
+}
+html[lang="en"] .substance-title-row h1 {
+  font-size: clamp(27px, 3vw, 45px);
+  overflow-wrap: anywhere;
+}
+html[lang="en"] .equation-condition {
+  white-space: nowrap;
+}
+html[lang="en"] .element-facts > div {
+  min-width: 0;
+}
+html[lang="en"] .element-facts > div > span {
+  line-height: 1.4;
+}
+@media (max-width: 1100px) {
+  html[lang="en"] .site-header {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 110px;
+    padding-block: 15px;
+    gap: 14px;
+  }
+  html[lang="en"] .header-right {
+    margin-left: auto;
+    gap: 16px;
+  }
+}
+@media (max-width: 700px) {
+  .language-switch button {
+    padding: 7px 8px;
+  }
+  .site-header .header-right {
+    flex-wrap: wrap;
+  }
+  html[lang="en"] .wordmark {
+    font-size: 18px;
+  }
+  html[lang="en"] .site-header .learning-switch {
+    justify-self: end;
+    margin-left: auto;
+  }
+  html[lang="en"] .learning-switch button {
+    font-size: 11px;
+    padding-inline: 8px;
+  }
+  html[lang="en"] .site-header .header-right {
+    width: 100%;
+    justify-content: flex-end;
+    gap: 14px;
+  }
+  html[lang="en"] .isotope-toolbar-note {
+    max-width: 100%;
+  }
+  html[lang="en"] .hero-key .element-name {
+    font-size: 11px;
+  }
+  html[lang="en"] .reading-button {
+    padding-left: 12px;
+  }
+  html[lang="en"] .element-facts > div > span {
+    font-size: 12px;
+  }
+}
+@media (max-width: 640px) {
+  .site-header,
+  body:has(.table-page) .site-header {
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+  }
+  .site-header .wordmark {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .site-header .learning-switch {
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+  }
+  .site-header .header-right,
+  html[lang="en"] .site-header .header-right {
+    grid-column: 1;
+    grid-row: 3;
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+  }
+}

@@ -1,0 +1,120 @@
+/* Teaching mode stays visible through the same element/material navigation. */
+.site-header {
+  gap: 20px;
+}
+.learning-switch {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  flex-shrink: 0;
+  width: 140px;
+  padding: 4px;
+  margin-right: auto;
+  border: 1px solid #d6dece;
+  border-radius: 9px;
+  background: #e8ece1;
+}
+.learning-switch-indicator {
+  position: absolute;
+  inset: 4px auto 4px 4px;
+  width: calc((100% - 8px) / 2);
+  border-radius: 6px;
+  background: #fdfef9;
+  box-shadow:
+    0 1px 4px #42503218,
+    inset 0 1px 0 #ffffffa0;
+  transition: transform 180ms cubic-bezier(0.22, 0.85, 0.25, 1);
+}
+.learning-switch-indicator[data-mode="senior"] {
+  transform: translateX(100%);
+}
+.learning-switch button {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 6px;
+  border-radius: 6px;
+  color: #606e5c;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.learning-switch button[aria-pressed="true"] {
+  color: #2e4927;
+  font-weight: 650;
+}
+.learning-switch button:active {
+  transform: translateY(1px);
+}
+.explore-notes:has(> .foundation-sources) {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.explore-notes > .foundation-sources {
+  grid-column: 1 / -1;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 640px) {
+  .site-header,
+  body:has(.table-page) .site-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    height: auto;
+    gap: 10px 8px;
+    padding-top: 14px;
+    padding-bottom: 12px;
+  }
+  .site-header .wordmark {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .site-header .header-right {
+    grid-column: 2;
+    grid-row: 1;
+    gap: 8px;
+  }
+  .learning-switch {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    margin: 0;
+  }
+  .learning-switch button {
+    min-height: 44px;
+  }
+  .explore-notes:has(> .foundation-sources) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.table-page .board-toolbar {
+  min-height: 44px;
+  height: auto;
+  padding: 0;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.table-page .table-tabs {
+  justify-content: flex-start;
+}
+.table-page .table-tabs button {
+  flex: 0 0 auto;
+  min-height: 36px;
+  padding: 8px 14px;
+  border: 1px solid #d2dbc9;
+  background: #f7f9f2;
+  color: #5b6d50;
+}
+.table-page .table-tabs button.active {
+  background: #e5edda;
+  border-color: #9baf87;
+  color: #354b30;
+}
+@media (max-width: 640px) {
+  .table-page .table-tabs button {
+    min-height: 44px;
+  }
+}

@@ -1,0 +1,147 @@
+/* Periodic-table key dimensions and type layout. Keep this page-scoped so the
+   exploration hero key and atom illustration retain their own scale. */
+body:has(.table-page) {
+  --table-key-width: 54px;
+  --table-key-height: calc(var(--table-key-width) * 1.25);
+  --table-field-width: calc(var(--table-key-width) * 18 + 136px);
+}
+
+.table-page .element-grid {
+  inline-size: max-content;
+  min-inline-size: 0;
+  margin-inline: auto;
+  padding: 4px 4px 8px;
+  gap: 6px;
+  grid-template-columns: 20px repeat(18, var(--table-key-width));
+  grid-template-rows:
+    18px repeat(7, var(--table-key-height)) 8px
+    repeat(2, var(--table-key-height));
+}
+
+.table-page .element-grid > .element-key {
+  inline-size: 100%;
+  block-size: 100%;
+  min-inline-size: 44px;
+  min-block-size: 44px;
+}
+
+.table-page .element-grid .element-key .key-face {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: clamp(7px, calc(var(--table-key-width) * 0.12), 15px);
+}
+
+.table-page .element-grid .element-key .atomic-number {
+  position: absolute;
+  inset-block-start: calc(var(--table-key-height) * 0.095);
+  inset-inline-start: calc(var(--table-key-width) * 0.105);
+  align-self: auto;
+  margin: 0;
+  padding: 0;
+  font-family: "DM Sans", "Segoe UI", sans-serif;
+  font-size: clamp(9px, calc(var(--table-key-height) * 0.135), 20px);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  opacity: 1;
+}
+
+.table-page .element-grid .element-key .element-symbol {
+  position: absolute;
+  inset-block-start: calc(var(--table-key-height) * 0.32);
+  inset-inline: 2px;
+  margin: 0;
+  font-family: "DM Sans", "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-size: clamp(22px, calc(var(--table-key-height) * 0.355), 58px);
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -0.55px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.table-page .element-grid .element-key .element-name {
+  position: absolute;
+  inset-inline: 3px;
+  inset-block-end: calc(var(--table-key-height) * 0.095);
+  margin: 0;
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-size: clamp(11px, calc(var(--table-key-height) * 0.18), 28px);
+  font-weight: 450;
+  line-height: 1;
+  letter-spacing: 0;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.table-page .element-grid .series-label {
+  gap: 3px;
+  line-height: 1.2;
+}
+
+.table-page .element-grid .series-label span {
+  line-height: 1.2;
+}
+
+.table-page .element-grid .story-dot {
+  top: calc(var(--table-key-height) * 0.11);
+  right: calc(var(--table-key-width) * 0.11);
+  width: clamp(3px, calc(var(--table-key-width) * 0.05), 6px);
+  height: clamp(3px, calc(var(--table-key-width) * 0.05), 6px);
+}
+
+@media (min-width: 701px) {
+  body:has(.table-page) {
+    /* 9 key rows at a 4:5 ratio, with room for the header, controls and legend. */
+    --table-key-width: clamp(
+      48px,
+      min(calc((100vw - 192px) / 18), calc((100svh - 264px) / 11.25)),
+      160px
+    );
+  }
+
+  .table-page,
+  body:has(.table-page) .site-header {
+    width: min(100%, calc(var(--table-field-width) + 56px));
+    max-width: none;
+    padding-inline: 28px;
+  }
+
+  body:has(.table-page) .site-header {
+    height: 64px;
+    min-height: 64px;
+  }
+
+  .table-page {
+    padding-top: 0;
+  }
+
+  .table-page .periodic-board {
+    padding: 0;
+  }
+
+  .table-page .board-toolbar {
+    margin-bottom: 8px;
+  }
+
+  .table-page .table-scroll {
+    padding-bottom: 4px;
+  }
+
+  .table-page .category-legend {
+    margin-top: 0;
+    padding: 8px 0;
+  }
+
+  .table-page .element-grid .series-placeholder strong,
+  .table-page .element-grid .series-label {
+    font-size: clamp(11px, calc(var(--table-key-height) * 0.15), 18px);
+  }
+
+  .table-page .element-grid .series-placeholder > span,
+  .table-page .element-grid .series-label span {
+    font-size: clamp(9px, calc(var(--table-key-height) * 0.12), 14px);
+  }
+}

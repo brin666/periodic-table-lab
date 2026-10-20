@@ -1,0 +1,13 @@
+{
+  "PropertyTable": {
+    "Properties": [
+      {
+        "CID": 123111,
+        "MolecularFormula": "O3Ti2",
+        "MolecularWeight": "143.73",
+        "IUPACName": "oxo(oxotitaniooxy)titanium",
+        "Title": "Dititanium trioxide"
+      }
+    ]
+  }
+}

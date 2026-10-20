@@ -1,0 +1,38 @@
+{
+  "name": "periodic-table-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate:knowledge-packs": "tsx scripts/build-knowledge-packs.ts",
+    "predev": "npm run generate:knowledge-packs",
+    "prebuild": "npm run generate:knowledge-packs",
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "test:browser": "playwright test",
+    "feedback:server": "node server/feedback-server.mjs",
+    "feedback:local": "node scripts/start-feedback-local.mjs",
+    "test:feedback-server": "node --test server/feedback-server.test.mjs",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "html-to-image": "^1.11.13",
+    "lucide-react": "^0.468.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "prettier": "^3.9.10",
+    "tsx": "^4.20.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.1.0"
+  }
+}
